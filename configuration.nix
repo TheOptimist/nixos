@@ -13,6 +13,8 @@
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -26,10 +28,11 @@
   boot.kernelParams = [ "elevator=none" ];
 
   networking.hostId = "0d5142d8";
+  networking.hostName = "bifrost";
   networking.useDHCP = false;
   networking.interfaces.enp7s0.useDHCP = true;
 
-  environment.systemPackages = with pkgs; [ git ];
+  environment.systemPackages = with pkgs; [ git firefox ];
 
   services.zfs = {
     autoScrub.enable = true;
@@ -41,6 +44,12 @@
     enable = true;
     permitRootLogin = "yes";
     passwordAuthentication = true;
+  };
+
+  services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
   };
 
   users = {
