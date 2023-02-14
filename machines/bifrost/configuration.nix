@@ -9,10 +9,9 @@
   nix.nixPath =
     [
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "nixos-config=/home/george/.nixos/configuration.nix"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
-
+  nix.package = pkgs.nixFlakes;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader.
