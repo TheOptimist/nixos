@@ -9,10 +9,13 @@
   nix.nixPath =
     [
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+      "nixos-config=/persist/etc/nixos/flake.nix"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
   nix.package = pkgs.nixFlakes;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nixpkgs.config.allowUnfree = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -25,6 +28,9 @@
 
   # source: https://grahamc.com/blog/nixos-on-zfs
   boot.kernelParams = [ "elevator=none" ];
+
+  hardware.opengl.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
   networking.hostId = "0d5142d8";
   networking.hostName = "bifrost";
@@ -51,6 +57,27 @@
     enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
+
+    videoDrivers = [ "nvidia" ];
+
+    xrandrHeads = [
+      {
+        output = "DP-0";
+        monitorConfig = ''
+          Option "Rotate" "Right"
+        '';
+      }
+      {
+        output = "DP-1";
+        primary = true;
+      }
+      {
+        output = "DP-4";
+        monitorConfig = ''
+          Option "Rotate" "Left"
+        '';
+      }
+    ];
   };
 
   users = {
