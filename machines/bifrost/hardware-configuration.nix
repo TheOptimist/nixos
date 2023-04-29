@@ -52,6 +52,7 @@ in {
   environment.persistence."/persist" = {
     directories = [
       "/etc/nixos"
+      "/etc/ssh"
     ];
     files = [];
   };
