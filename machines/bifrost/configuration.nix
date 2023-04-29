@@ -43,6 +43,7 @@
 
   services.autorandr = {
     enable = true;
+    defaultTarget = "working";
     profiles = {
       "working" = {
         fingerprint = {
@@ -91,6 +92,11 @@
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
+    displayManager.setupCommands = ''
+      ${pkgs.xorg.xrandr}/bin/xrandr --output DP-0 --mode 2560x1440 --pos 0x0 --rotate right
+      ${pkgs.xorg.xrandr}/bin/xrandr --output DP-4 --mode 2560x1440 --pos 1440x524 --rotate normal --primary
+      ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --mode 2560x1440 --pos 4000x0 --rotate left
+    '';
     desktopManager.gnome.enable = true;
 
     videoDrivers = [ "nvidia" ];
