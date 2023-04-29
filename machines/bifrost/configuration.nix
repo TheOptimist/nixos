@@ -9,7 +9,7 @@
   nix.nixPath =
     [
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "nixos-config=/persist/etc/nixos/flake.nix"
+      "nixos-config=/home/george/.nixos/flake.nix"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
   nix.package = pkgs.nixFlakes;
@@ -29,6 +29,8 @@
   # source: https://grahamc.com/blog/nixos-on-zfs
   boot.kernelParams = [ "elevator=none" ];
 
+  security.sudo.wheelNeedsPassword = false;
+
   hardware.opengl.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
@@ -37,7 +39,40 @@
   networking.useDHCP = false;
   networking.interfaces.enp7s0.useDHCP = true;
 
-  environment.systemPackages = with pkgs; [ git firefox ];
+  environment.systemPackages = with pkgs; [ git firefox autorandr ];
+
+  services.autorandr = {
+    enable = true;
+    profiles = {
+      "working" = {
+        fingerprint = {
+          "DP-0" = "00ffffffffffff0010acc1d0545039301f1b0104a5351e783aad75a9544d9d260f5054a54b008100b300d100714fa9408180d1c00101565e00a0a0a02950302035000e282100001a000000ff0032394a3050373836303950540a000000fc0044454c4c205032343138440a20000000fd0031561d711c010a20202020202001f8020315b15090050403020716010611121513141f20023a801871382d40582c45000e282100001e011d8018711c1620582c25000e282100009ebf1600a08038134030203a000e282100001a7e3900a080381f4030203a000e282100001a0000000000000000000000000000000000000000000000000000000000000000000062";
+          "DP-2" = "00ffffffffffff0010acc1d054454330271b0104a5351e783aad75a9544d9d260f5054a54b008100b300d100714fa9408180d1c00101565e00a0a0a02950302035000e282100001a000000ff0032394a3050373952304345540a000000fc0044454c4c205032343138440a20000000fd0031561d711c010a20202020202001d5020315b15090050403020716010611121513141f20023a801871382d40582c45000e282100001e011d8018711c1620582c25000e282100009ebf1600a08038134030203a000e282100001a7e3900a080381f4030203a000e282100001a0000000000000000000000000000000000000000000000000000000000000000000062";
+          "DP-4" = "00ffffffffffff0010acc1d054414430271b0104a5351e783aad75a9544d9d260f5054a54b008100b300d100714fa9408180d1c00101565e00a0a0a02950302035000e282100001a000000ff0032394a3050373952304441540a000000fc0044454c4c205032343138440a20000000fd0031561d711c010a20202020202001db020315b15090050403020716010611121513141f20023a801871382d40582c45000e282100001e011d8018711c1620582c25000e282100009ebf1600a08038134030203a000e282100001a7e3900a080381f4030203a000e282100001a0000000000000000000000000000000000000000000000000000000000000000000062";
+        };
+        config = {
+          "DP-0" = {
+            enable = true;
+            position = "0x0";
+            mode = "2560x1440";
+            rotate = "right";
+          };
+          "DP-4" = {
+            enable = true;
+            position = "1440x524";
+            mode = "2560x1440";
+            primary = true;
+          };
+          "DP-2" = {
+            enable = true;
+            position = "4000x0";
+            mode = "2560x1440";
+            rotate = "left";
+          };
+        };
+      };
+    };
+  };
 
   services.zfs = {
     autoScrub.enable = true;
@@ -59,25 +94,6 @@
     desktopManager.gnome.enable = true;
 
     videoDrivers = [ "nvidia" ];
-
-    xrandrHeads = [
-      {
-        output = "DP-0";
-        monitorConfig = ''
-          Option "Rotate" "Right"
-        '';
-      }
-      {
-        output = "DP-1";
-        primary = true;
-      }
-      {
-        output = "DP-4";
-        monitorConfig = ''
-          Option "Rotate" "Left"
-        '';
-      }
-    ];
   };
 
   users = {
