@@ -29,6 +29,8 @@
   # source: https://grahamc.com/blog/nixos-on-zfs
   boot.kernelParams = [ "elevator=none" ];
 
+  time.timeZone = "America/Toronto";
+
   security.sudo.wheelNeedsPassword = false;
 
   hardware.opengl.enable = true;
