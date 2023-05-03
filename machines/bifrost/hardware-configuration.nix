@@ -54,6 +54,7 @@ in {
     directories = [
       "/etc/nixos"
       "/etc/ssh"
+      "/var/lib/bluetooth"
     ];
     files = [];
   };
