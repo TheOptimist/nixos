@@ -92,6 +92,8 @@
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
+    # Not really sure I like this approach tbh. It does work for the login screen, but autorandr
+    # still needs to run on user login, otherwise the display characteristics are reset
     displayManager.setupCommands = ''
       ${pkgs.xorg.xrandr}/bin/xrandr --output DP-0 --mode 2560x1440 --pos 0x0 --rotate right
       ${pkgs.xorg.xrandr}/bin/xrandr --output DP-4 --mode 2560x1440 --pos 1440x524 --rotate normal --primary
