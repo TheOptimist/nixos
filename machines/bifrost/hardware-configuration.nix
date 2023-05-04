@@ -55,6 +55,7 @@ in {
       "/etc/nixos"
       "/etc/ssh"
       "/var/lib/bluetooth"
+      "/var/lib/libvirtd/images"
     ];
     files = [];
   };
