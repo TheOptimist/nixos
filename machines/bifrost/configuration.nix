@@ -41,8 +41,14 @@
 
   networking.hostId = "0d5142d8";
   networking.hostName = "bifrost";
+
   networking.useDHCP = false;
   networking.interfaces.enp7s0.useDHCP = true;
+  networking.interfaces.br0.useDHCP = true;
+  networking.bridges.br0.interfaces = [ "enp7s0" ];
+  
+  systemd.services.NetworkManager.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   environment.systemPackages = with pkgs; [
     git
@@ -51,6 +57,7 @@
     virt-manager
     lastpass-cli
     element-desktop
+    google-chrome
   ];
 
   services.pcscd.enable = true;
