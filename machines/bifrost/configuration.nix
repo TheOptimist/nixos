@@ -29,6 +29,9 @@
   # source: https://grahamc.com/blog/nixos-on-zfs
   boot.kernelParams = [ "elevator=none" ];
 
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
+
   time.timeZone = "America/Toronto";
 
   security.sudo.wheelNeedsPassword = false;
@@ -41,7 +44,7 @@
   networking.useDHCP = false;
   networking.interfaces.enp7s0.useDHCP = true;
 
-  environment.systemPackages = with pkgs; [ git firefox autorandr ];
+  environment.systemPackages = with pkgs; [ git firefox autorandr virt-manager ];
 
   services.autorandr = {
     enable = true;
@@ -118,7 +121,7 @@
         isNormalUser = true;
         initialHashedPassword = "\$6\$I/LockFIWSLzZkLY\$xAftwpPCTzg/XwXq77UasTCRU89kF9fJLLFSabdbCaizouVO2Gw/jYfdQfOVtxrNXGwLMJj9JsGZiX5pp953l/";
 	group = "users";
-	extraGroups = [ "wheel" ];
+	extraGroups = [ "wheel" "libvirtd" ];
         createHome = true;
 	home = "/home/george";
 	useDefaultShell = true;
