@@ -44,7 +44,16 @@
   networking.useDHCP = false;
   networking.interfaces.enp7s0.useDHCP = true;
 
-  environment.systemPackages = with pkgs; [ git firefox autorandr virt-manager ];
+  environment.systemPackages = with pkgs; [
+    git
+    firefox
+    autorandr
+    virt-manager
+    lastpass-cli
+    element-desktop
+  ];
+
+  services.pcscd.enable = true;
 
   services.autorandr = {
     enable = true;
