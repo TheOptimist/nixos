@@ -29,7 +29,14 @@
   # source: https://grahamc.com/blog/nixos-on-zfs
   boot.kernelParams = [ "elevator=none" ];
 
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+   enable = true;
+   qemu.runAsRoot = true;
+   qemu.ovmf.enable = true;
+   qemu.ovmf.packages = [ pkgs.OVMFFull ];
+   qemu.swtpm.enable = true;
+  };
+  
   programs.dconf.enable = true;
 
   time.timeZone = "America/Toronto";
@@ -133,14 +140,14 @@
       };
 
       george = {
-	uid = 1000;
+	      uid = 1000;
         isNormalUser = true;
         initialHashedPassword = "\$6\$I/LockFIWSLzZkLY\$xAftwpPCTzg/XwXq77UasTCRU89kF9fJLLFSabdbCaizouVO2Gw/jYfdQfOVtxrNXGwLMJj9JsGZiX5pp953l/";
-	group = "users";
-	extraGroups = [ "wheel" "libvirtd" ];
+        group = "users";
+        extraGroups = [ "wheel" "libvirtd" ];
         createHome = true;
-	home = "/home/george";
-	useDefaultShell = true;
+        home = "/home/george";
+        useDefaultShell = true;
       };
     };
   };

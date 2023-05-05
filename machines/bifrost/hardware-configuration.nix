@@ -54,10 +54,9 @@ in {
     directories = [
       "/etc/nixos"
       "/etc/ssh"
-      "/var/lib/bluetooth"
-      "/var/lib/libvirtd/images"
+      "/var/lib"
     ];
-    files = [];
+    files = [ ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -69,6 +68,5 @@ in {
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
+
 }
