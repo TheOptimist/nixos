@@ -21,13 +21,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.plymouth.enable = true;
+
   # source: https://grahamc.com/blog/erase-your-darlings
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     zfs rollback -r rpool/local/root@blank
   '';
-
-  # source: https://grahamc.com/blog/nixos-on-zfs
-  boot.kernelParams = [ "elevator=none" ];
 
   virtualisation.libvirtd = {
    enable = true;
