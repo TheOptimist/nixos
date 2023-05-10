@@ -27,6 +27,11 @@
     extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
     ];
+    userSettings = {
+      "workbench.startupEditor" = "none";
+      "editor.tabSize" = 2;
+      "editor.indentSize" = "tabSize";
+    };
   };
 
   xdg.enable = true;
