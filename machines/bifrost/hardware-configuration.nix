@@ -54,9 +54,13 @@ in {
     directories = [
       "/etc/nixos"
       "/etc/ssh"
-      "/var/lib"
+      "/var/log"
+      "/var/lib/bluetooth"
+      "/var/lib/libvirt"
     ];
-    files = [ ];
+    files = [ 
+      "/etc/machine-id"
+    ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
