@@ -65,10 +65,6 @@
     element-desktop
     google-chrome
   ];
-
-  environment.sessionVariables = rec {
-    XDG_CONFIG_HOME = "\${HOME}/.config";
-  };
   
   services.pcscd.enable = true;
   services.printing.enable = true;
