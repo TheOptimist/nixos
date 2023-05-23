@@ -26,11 +26,14 @@
     enable = true;
     extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
+      pkief.material-icon-theme
+      pkief.material-product-icons
     ];
     userSettings = {
       "workbench.startupEditor" = "none";
       "editor.tabSize" = 2;
       "editor.indentSize" = "tabSize";
+      "workbench.productIconTheme" = "material-product-icons";
     };
   };
 
