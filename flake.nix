@@ -3,18 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, ... }: {
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs: {
 
     nixosConfigurations = {
       bifrost = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
         modules = [
           (import ./machines/bifrost/configuration.nix)
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
