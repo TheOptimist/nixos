@@ -28,15 +28,18 @@
     zfs rollback -r rpool/local/root@blank
   '';
 
+  boot.kernelModules = [ "kvm-amd" ];
+  # Enable nested virtualisation inside the guests?
+  # boot.extraModprobeConfig = "options kvm_amd nested=1";
   virtualisation.libvirtd = {
-   enable = true;
-   qemu.runAsRoot = true;
-   qemu.ovmf.enable = true;
-   qemu.ovmf.packages = [ pkgs.OVMFFull ];
-   qemu.swtpm.enable = true;
+    enable = true;
+    allowedBridges = [ "br0" "virbr0" ];
+    qemu = {
+      runAsRoot = true;
+      ovmf.enable = true;
+      swtpm.enable = true;
+    };
   };
-  
-  programs.dconf.enable = true;
 
   time.timeZone = "America/Toronto";
 
@@ -60,12 +63,15 @@
     git
     firefox
     autorandr
-    virt-manager
     lastpass-cli
+    virt-manager
     element-desktop
     google-chrome
     liquidctl
     lm_sensors
+    packer
+    cdrkit
+    swtpm
   ];
   
   services.thermald.enable = true;
@@ -131,8 +137,8 @@
   services.openssh = {
     enable = true;
     settings = {
-      permitRootLogin = "yes";
-      passwordAuthentication = true;
+      PermitRootLogin = "yes";
+      PasswordAuthentication = true;
     };
   };
 

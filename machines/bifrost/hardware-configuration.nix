@@ -6,7 +6,7 @@
 let
   impermanence = fetchTarball {
     url = https://github.com/nix-community/impermanence/archive/master.tar.gz;
-    sha256 = "0nnp5g40lkkmfpvmc7sfws48fji3i0nz1k6pav8vkfk8pd1wl810";
+    sha256 = "095q3c1kyj7lpnn1i53c0158jh02avsm6xmkvql045xppkxfnk1b";
   };
 
 in {
@@ -18,7 +18,7 @@ in {
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" "k10temp" "nct6775" "i2c-dev" "i2c-piix4" ];
+  boot.kernelModules = [ "k10temp" "nct6775" "i2c-dev" "i2c-piix4" ];
   boot.extraModulePackages = [ ];
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
 
@@ -50,6 +50,8 @@ in {
 
   swapDevices = [ ];
 
+  hardware.bluetooth.enable = true;
+  
   environment.persistence."/persist" = {
     directories = [
       "/etc/nixos"
@@ -57,6 +59,7 @@ in {
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/libvirt"
+      "/root/.config/packer"
     ];
     files = [ 
       "/etc/machine-id"

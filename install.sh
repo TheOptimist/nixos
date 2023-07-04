@@ -62,6 +62,7 @@ export ZFS_DS_NIX="${ZFS_LOCAL}/nix"
 export ZFS_SAFE="${ZFS_POOL}/safe"
 export ZFS_DS_HOME="${ZFS_SAFE}/home"
 export ZFS_DS_PERSIST="${ZFS_SAFE}/persist"
+export ZFS_DS_VMS="${ZFS_SAFE}/vms
 
 export ZFS_BLANK_SNAPSHOT="${ZFS_DS_ROOT}@blank"
 
