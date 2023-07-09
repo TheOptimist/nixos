@@ -28,9 +28,24 @@ variable capacity {
   default = "64G"
 }
 
-source "libvirt" "winvm" {
+variable localUser {
+  type = string
+  default = "george"
+}
+
+variable localUserPassword {
+  type = string
+  default = "password"
+}
+
+variable administratorPassword {
+  type = string
+  default = "password"
+}
+
+source "libvirt" "win_11_base" {
   libvirt_uri = "qemu:///system"
-  domain_name = "${var.name}"
+  domain_name = var.name
 
   chipset = "q35"
   arch = "x86_64"
@@ -81,7 +96,13 @@ source "libvirt" "winvm" {
       type = "files"
       label = "unattend"
       contents = {
-        "autounattend.xml" = templatefile("${path.root}/autounattend.pkrtpl.hcl", { localUser = "george", computerName = var.name })
+        "autounattend.xml" = templatefile("${path.root}/autounattend.pkrtpl.hcl", {
+          computerName = var.name,
+          localUser = var.localUser,
+          localUserPassword = var.localUserPassword,
+          administratorPassword = var.administratorPassword
+        }),
+        "bootstrap.ps1" = file("${path.root}/scripts/bootstrap.ps1")
       }
     }
   }
@@ -97,7 +118,6 @@ source "libvirt" "winvm" {
       type = "files"
       label = "drivers"
       files = [ "/home/george/ISOs/drivers/*" ]
-      // /home/george/ISOs/drivers.iso
     }
   }
 
@@ -120,18 +140,19 @@ source "libvirt" "winvm" {
 
   communicator_interface = "bridge"
   communicator {
-    communicator = "winrm"
-    winrm_username = "george"
-    winrm_password = "password"
+    communicator = "ssh"
+    ssh_username = var.localUser
+    ssh_password = var.localUserPassword
+    ssh_timeout = "1h"
   }
 
   shutdown_timeout = "15m"
 }
 
 build {
-  sources = [ "source.libvirt.winvm" ]
+  sources = [ "source.libvirt.win_11_base" ]
 
-  provisioner "breakpoint" {
-    note = "Check virtual machine in virt-manager"
+  provisioner "powershell" {
+    script = "./scripts/set-power-scheme.ps1"
   }
 }
