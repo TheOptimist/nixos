@@ -7,7 +7,7 @@
 $Drivers = (Get-Volume -FileSystemLabel 'drivers').DriveLetter
 & "${Drivers}:\virtio-win-guest-tools.exe" /install /norestart /quiet
 
-# Installing spice drivers has to a LOCAL SYSTEM action...
+# Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
 # Add Microsoft OpenSSH client and server (apparently naming stuff is hard...)
 Add-WindowsCapability -Online -Name "OpenSSH.Client~~~~0.0.1.0"

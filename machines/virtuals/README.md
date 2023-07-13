@@ -25,9 +25,33 @@ base NixOS machine.
 ## Tasks
   - [X] Install base Windows 11 Pro machine
   - [X] Provision base Windows 11 Pro machine
+    - [X] Install SPICE tools (Elevate to SYSTEM)
     - [X] Autounattend file
     - [X] Bootstrap
-    - [ ] Remove provisioned applications
-    - [ ] Disable unnecessary services
-    - [ ] Disable Windows Defender (live dangerously)
-    - [ ] Disable screensaver
+    - [X] Disable user access control
+    - [X] Disable telemetry
+    - [X] Disable consumer experience
+    - [X] Disable unnecessary services
+    - [X] Remove provisioned applications
+    - [X] Disable scheduled tasks
+    - [X] Fix privacy settings
+    - [X] Set power scheme (high performance)
+    - [X] Disable screensaver
+    - [X] Set taskbar properties
+    - [X] Hide desktop icons
+  - [ ] Provision base personal machine
+    - [ ] Install Scoop
+      - [ ] Create Scoop bucket containing my apps?
+    - [ ] Install Chocolatey? (Some apps are not available via Scoop)
+    - [ ] Install PowerShell (via Scoop)
+      - [ ] Create personal profile
+  - [ ] Provision base Work machine
+    - [ ] Disable Xbox related services
+    - [ ] Installation of Scoop packages
+
+### Improving
+These tasks still need to be carried out manually after the creation of the virtual machine. At some
+point it would be good to automate these as well.
+
+  - [ ] Set video options to QXL
+  - [ ] Installing Scoop fails because it thinks its still an administrator

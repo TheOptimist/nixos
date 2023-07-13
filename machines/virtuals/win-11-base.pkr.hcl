@@ -5,42 +5,18 @@ packer {
       version = ">= 0.5.0"
       source  = "github.com/thomasklein94/libvirt"
     }
+
+    windows-update = {
+      version = "0.14.3"
+      source = "github.com/rgl/windows-update"
+    }
+
   }
 }
 
 variable "name" {
   type = string
-  default = "test"
-}
-
-variable "cpus" {
-  type = number
-  default = 8
-}
-
-variable "memory" {
-  type = number
-  default = 16384
-}
-
-variable capacity { 
-  type = string
-  default = "64G"
-}
-
-variable localUser {
-  type = string
-  default = "george"
-}
-
-variable localUserPassword {
-  type = string
-  default = "password"
-}
-
-variable administratorPassword {
-  type = string
-  default = "password"
+  default = "win_11_base"
 }
 
 source "libvirt" "win_11_base" {
@@ -73,7 +49,7 @@ source "libvirt" "win_11_base" {
   }
 
   volume {
-    pool = "isos"
+    pool = "tmp"
     name = "${var.name}_installer"
     format = "raw"
     device = "cdrom"
@@ -108,7 +84,7 @@ source "libvirt" "win_11_base" {
   }
 
   volume {
-    pool = "isos"
+    pool = "tmp"
     name = "${var.name}_drivers"
     format = "raw"
     device = "cdrom"
@@ -151,8 +127,38 @@ source "libvirt" "win_11_base" {
 
 build {
   sources = [ "source.libvirt.win_11_base" ]
+  
+  provisioner "powershell" {
+    elevated_user = "SYSTEM"
+    elevated_password = ""
+    scripts = [ "./scripts/install-spice-tools.ps1" ]
+  }
 
   provisioner "powershell" {
-    script = "./scripts/set-power-scheme.ps1"
+    // elevated_user = "george"
+    // elevated_password = "${var.localUserPassword}"
+    scripts = [
+      "./scripts/disable-user-access-control.ps1",
+      "./scripts/disable-telemetry.ps1",
+      "./scripts/disable-consumer-experience.ps1",
+      "./scripts/disable-services.ps1",
+      "./scripts/remove-provisioned-apps.ps1",
+      "./scripts/disable-scheduled-tasks.ps1",
+      "./scripts/fix-privacy-settings.ps1",
+      "./scripts/set-power-scheme.ps1",
+      "./scripts/disable-screensaver.ps1",
+      "./scripts/set-taskbar-properties.ps1",
+      "./scripts/hide-desktop-icons.ps1"
+    ]
+  }
+
+  # Important updates
+  provisioner "windows-update" {
+    search_criteria = "AutoSelectOnWebSites=1 and IsInstalled=0"
+  }
+
+  # Recommended updates
+  provisioner "windows-update" {
+    search_criteria = "BrowseOnly=0 and IsInstalled=0"
   }
 }
