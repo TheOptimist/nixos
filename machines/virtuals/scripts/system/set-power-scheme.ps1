@@ -2,17 +2,17 @@ Set-StrictMode -Version Latest
 $ProgressPreference = 'SilentlyContinue'
 $ErrorActionPreference = 'Stop'
 trap {
-    Write-Host
-    Write-Host "ERROR: $_"
-    ($_.ScriptStackTrace -split '\r?\n') -replace '^(.*)$','ERROR: $1' | Write-Host
-    ($_.Exception.ToString() -split '\r?\n') -replace '^(.*)$','ERROR EXCEPTION: $1' | Write-Host
-    Write-Host
-    Write-Host 'Sleeping for 15m to give you time to look around the virtual machine before self-destruction...'
-    Start-Sleep -Seconds (15*60)
-    Exit 1
+  Write-Host
+  Write-Host "ERROR: $_"
+  ($_.ScriptStackTrace -split '\r?\n') -replace '^(.*)$','ERROR: $1' | Write-Host
+  ($_.Exception.ToString() -split '\r?\n') -replace '^(.*)$','ERROR EXCEPTION: $1' | Write-Host
+  Exit 1
 }
 
-Write-Host "$(whoami): Setting power scheme (high performance)"
+$AdministratorRole = [Security.Principal.WindowsBuiltInRole]::Administrator
+$CurrentIdentity = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
+$Elevated = @('', '(admin) ')[$CurrentIdentity.IsInRole($AdministratorRole)]
+$Runner = "${Elevated}$(whoami):"
 
 try {
 
@@ -24,6 +24,7 @@ try {
   }
 
   powercfg -setactive $HighPerformanceScheme
+  Write-Host "$Runner Power plan set to high performance"
 } catch {
   Write-Warning -Message "Unable to set power plan to High Performance"
   Write-Warning $Error[0]

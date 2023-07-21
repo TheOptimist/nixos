@@ -12,16 +12,17 @@ trap {
     Exit 1
 }
 
-Write-Host "$(whoami): Disabling scheduled tasks"
+Write-Host "$(whoami): Disabling services"
 
-@(
-  'XblGameSaveTask'
-  'ScheduledDefrag'
-  'SilentCleanup'
+$Services = @(
+  'ALG'                                         # Application Layer Gateway Service
+  'BDESVC'                                      # BitLocker Drive Encryption Service
+  'defragsvc'                                   # Defragmentation (optimize drives)
+  
+  'fhsvc'                                       # File History Service
+  
+
+ 
 ) | ForEach-Object {
-  $task = Get-ScheduledTask -TaskName "$_" -ErrorAction SilentlyContinue
-  if ($task) {
-    Write-Host "Disabling $($task.taskName)"
-    $task | Disable-ScheduledTask | Out-Null
-  }
+    Get-Service -Name $_ | Set-Service -StartupType Disabled
 }

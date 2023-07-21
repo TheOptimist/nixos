@@ -1,4 +1,4 @@
-
+// A base installation of Windows 11 with a few tweaks and windows update
 packer {
   required_plugins {
     libvirt = {
@@ -103,6 +103,7 @@ source "libvirt" "win_11_base" {
     bridge = "br0"
     model = "virtio"
   }
+
   network_address_source = "agent"
 
   graphics {
@@ -135,20 +136,34 @@ build {
   }
 
   provisioner "powershell" {
-    // elevated_user = "george"
-    // elevated_password = "${var.localUserPassword}"
     scripts = [
-      "./scripts/disable-user-access-control.ps1",
-      "./scripts/disable-telemetry.ps1",
-      "./scripts/disable-consumer-experience.ps1",
-      "./scripts/disable-services.ps1",
-      "./scripts/remove-provisioned-apps.ps1",
-      "./scripts/disable-scheduled-tasks.ps1",
-      "./scripts/fix-privacy-settings.ps1",
-      "./scripts/set-power-scheme.ps1",
-      "./scripts/disable-screensaver.ps1",
-      "./scripts/set-taskbar-properties.ps1",
-      "./scripts/hide-desktop-icons.ps1"
+      "./scripts/system/disable-advertising.ps1",
+      "./scripts/system/disable-background-apps.ps1",
+      "./scripts/system/disable-biometrics.ps1",
+      "./scripts/system/disable-bluetooth.ps1",
+      "./scripts/system/disable-cellular-services.ps1",
+      "./scripts/system/disable-compatibility-telemetry.ps1",
+      "./scripts/system/disable-consumer-experience.ps1",
+      "./scripts/system/disable-corporate-networking.ps1",
+      "./scripts/system/disable-diagnostics.ps1",
+      "./scripts/system/disable-feedback.ps1",
+      "./scripts/system/disable-location-tracking.ps1",
+      "./scripts/system/disable-parental-controls.ps1",
+      "./scripts/system/disable-peer-to-peer.ps1",
+      "./scripts/system/disable-powershell-legacy.ps1",
+      "./scripts/system/disable-remote-networking.ps1",
+      "./scripts/system/disable-sensors.ps1",
+      "./scripts/system/disable-stickers.ps1",
+      "./scripts/system/disable-suggested-content.ps1",
+      "./scripts/system/disable-tailored-experiences.ps1",
+      "./scripts/system/disable-telemetry.ps1",
+      "./scripts/system/disable-user-access-control.ps1",
+      "./scripts/system/disable-widgets.ps1",
+      "./scripts/system/disable-windows-insider.ps1",
+      "./scripts/system/disable-wireless-networking.ps1",
+      "./scripts/system/disable-xbox-live.ps1",
+      "./scripts/system/remove-provisioned-apps.ps1",
+      "./scripts/system/set-power-scheme.ps1"
     ]
   }
 
@@ -161,4 +176,33 @@ build {
   provisioner "windows-update" {
     search_criteria = "BrowseOnly=0 and IsInstalled=0"
   }
+
+  provisioner "powershell" {
+    elevated_user = "Administrator"
+    elevated_password = var.administratorPassword
+    inline = [ "net localgroup Administrators ${var.localUser} /delete" ]
+  }
+
+  provisioner "windows-restart" {}
+
+  provisioner "powershell" {
+    scripts = [
+      "./scripts/user/configure-xdg-directories.ps1",
+      "./scripts/user/disable-screensaver.ps1",
+      "./scripts/user/hide-desktop-icons.ps1",
+      "./scripts/user/set-mouse-properties.ps1",
+      "./scripts/user/set-taskbar-properties.ps1",
+      "./scripts/user/install-scoop.ps1",
+      "./scripts/user/install-nerd-fonts.ps1",
+      "./scripts/user/install-powershell.ps1"
+    ]
+  }
+
+  // Right now, this doesn't work. Moving on with this, and I can always add
+  // myself to the Administrators group once I'm logged on...
+  // provisioner "powershell" {
+  //   elevated_user = "Administrator"
+  //   elevated_password = var.administratorPassword
+  //   inline = [ "net localgroup Administrators ${var.localUser} /add" ]
+  // }
 }

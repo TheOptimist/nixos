@@ -117,6 +117,10 @@
                     <Order>5</Order>
                     <Path>reg add HKLM\SYSTEM\Setup\LabConfig /v BypassStorageCheck /t REG_DWORD /d 1</Path>
                 </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>6</Order>
+                    <Path>reg add HKLM\SYSTEM\Setup\MoSetup /v AllowUpgradesWithUnsupportedTPMOrCPU /t REG_DWORD /d 1</Path>
+                </RunSynchronousCommand>
              </RunSynchronous>
         </component>
         <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -132,7 +136,7 @@
     </settings>
     <settings pass="offlineServicing">
         <component name="Microsoft-Windows-LUA-Settings" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
-            <EnableLUA>false</EnableLUA>
+            <EnableLUA>true</EnableLUA>
         </component>
     </settings>
     <settings pass="specialize">
@@ -170,7 +174,7 @@
                             <PlainText>true</PlainText>
                         </Password>
                         <Description>Local User</Description>
-                        <Group>administrators</Group>
+                        <Group>Administrators</Group>
                     </LocalAccount>
                 </LocalAccounts>
             </UserAccounts>

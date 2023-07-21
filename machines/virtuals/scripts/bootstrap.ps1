@@ -4,18 +4,24 @@
 # Intended to be executed as a SynchronousCommand at FirstLogon, it makes it
 # easier to write new functionality in that messing around with XML...
 
-$Drivers = (Get-Volume -FileSystemLabel 'drivers').DriveLetter
-& "${Drivers}:\virtio-win-guest-tools.exe" /install /norestart /quiet
+# Enable builtin Administrator role
+net user administrator /active:yes
+
+$Drive = "$((Get-Volume -FileSystemLabel 'drivers').DriveLetter):"
+$SpiceGuestTools = "$Drive\virtio-win-guest-tools.exe"
+& "$SpiceGuestTools" /install /norestart /quiet
 
 # Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted
 
-# Add Microsoft OpenSSH client and server (apparently naming stuff is hard...)
-Add-WindowsCapability -Online -Name "OpenSSH.Client~~~~0.0.1.0"
+# Add Microsoft OpenSSH server (apparently naming stuff is hard...)
 Add-WindowsCapability -Online -Name "OpenSSH.Server~~~~0.0.1.0"
 
 # Start the service, and make it start on boot
 Start-Service sshd
 Set-Service -Name sshd -StartupType automatic
+
+# Permit 'Users' group to use SSH service
+"AllowGroups Users" | Add-Content -Path C:\ProgramData\ssh\sshd_config
 
 # Add firewall exception (this should be last, as Packer will connect at this point)
 $OpenSSHFirewallParams = @{
