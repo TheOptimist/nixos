@@ -67,6 +67,10 @@
     virt-manager
     element-desktop
     google-chrome
+    (vivaldi.override {
+      proprietaryCodecs = true;
+      enableWidevine = true;
+    })
     liquidctl
     lm_sensors
     packer
