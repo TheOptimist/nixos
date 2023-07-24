@@ -48,6 +48,11 @@ in {
     neededForBoot = true;
   };
 
+  fileSystems."/images" = {
+    device = "rpool/safe/images";
+    fsType = "zfs";
+  };
+  
   swapDevices = [ ];
 
   hardware.bluetooth.enable = true;
