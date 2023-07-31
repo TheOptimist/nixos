@@ -45,8 +45,17 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  hardware.opengl.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = false;
+    modesetting.enable = true;
+  };
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
 
   networking.hostId = "0d5142d8";
   networking.hostName = "bifrost";
@@ -159,6 +168,8 @@
     desktopManager.gnome.enable = true;
 
     videoDrivers = [ "nvidia" ];
+
+    libinput.enable = true;
   };
 
   users = {
