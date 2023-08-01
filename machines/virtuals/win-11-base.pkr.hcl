@@ -19,6 +19,36 @@ variable "name" {
   default = "win_11_base"
 }
 
+variable cpus {
+  type = number
+  default = 8
+}
+
+variable memory {
+  type = number
+  default = 16384
+}
+
+variable capacity { 
+  type = string
+  default = "32G"
+}
+
+variable localUser {
+  type = string
+  default = "george"
+}
+
+variable localUserPassword {
+  type = string
+  default = "password"
+}
+
+variable administratorPassword {
+  type = string
+  default = "password"
+}
+
 source "libvirt" "win_11_base" {
   libvirt_uri = "qemu:///system"
   domain_name = var.name
@@ -78,7 +108,7 @@ source "libvirt" "win_11_base" {
           localUserPassword = var.localUserPassword,
           administratorPassword = var.administratorPassword
         }),
-        "bootstrap.ps1" = file("${path.root}/scripts/bootstrap.ps1")
+        "bootstrap.ps1" = file("${path.root}/scripts/bootstrap_ssh.ps1")
       }
     }
   }
@@ -99,9 +129,7 @@ source "libvirt" "win_11_base" {
 
   network_interface {
     type = "bridge"
-    alias = "bridge"
     bridge = "br0"
-    model = "virtio"
   }
 
   network_address_source = "agent"
@@ -115,7 +143,6 @@ source "libvirt" "win_11_base" {
     "<up><wait><up>"
   ]
 
-  communicator_interface = "bridge"
   communicator {
     communicator = "ssh"
     ssh_username = var.localUser
@@ -162,6 +189,7 @@ build {
       "./scripts/system/disable-windows-insider.ps1",
       "./scripts/system/disable-wireless-networking.ps1",
       "./scripts/system/disable-xbox-live.ps1",
+      "./scripts/system/enable-long-paths.ps1",
       "./scripts/system/remove-provisioned-apps.ps1",
       "./scripts/system/set-power-scheme.ps1"
     ]
@@ -170,39 +198,12 @@ build {
   # Important updates
   provisioner "windows-update" {
     search_criteria = "AutoSelectOnWebSites=1 and IsInstalled=0"
+    restart_timeout = "1h"
   }
 
   # Recommended updates
   provisioner "windows-update" {
     search_criteria = "BrowseOnly=0 and IsInstalled=0"
+    restart_timeout = "1h"
   }
-
-  provisioner "powershell" {
-    elevated_user = "Administrator"
-    elevated_password = var.administratorPassword
-    inline = [ "net localgroup Administrators ${var.localUser} /delete" ]
-  }
-
-  provisioner "windows-restart" {}
-
-  provisioner "powershell" {
-    scripts = [
-      "./scripts/user/configure-xdg-directories.ps1",
-      "./scripts/user/disable-screensaver.ps1",
-      "./scripts/user/hide-desktop-icons.ps1",
-      "./scripts/user/set-mouse-properties.ps1",
-      "./scripts/user/set-taskbar-properties.ps1",
-      "./scripts/user/install-scoop.ps1",
-      "./scripts/user/install-nerd-fonts.ps1",
-      "./scripts/user/install-powershell.ps1"
-    ]
-  }
-
-  // Right now, this doesn't work. Moving on with this, and I can always add
-  // myself to the Administrators group once I'm logged on...
-  // provisioner "powershell" {
-  //   elevated_user = "Administrator"
-  //   elevated_password = var.administratorPassword
-  //   inline = [ "net localgroup Administrators ${var.localUser} /add" ]
-  // }
 }

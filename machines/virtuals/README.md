@@ -39,6 +39,7 @@ base NixOS machine.
     - [X] Disable screensaver
     - [X] Set taskbar properties
     - [X] Hide desktop icons
+
   - [ ] Provision base personal machine
     - [ ] Install Scoop
       - [ ] Create Scoop bucket containing my apps?
@@ -55,3 +56,4 @@ point it would be good to automate these as well.
 
   - [ ] Set video options to QXL
   - [ ] Installing Scoop fails because it thinks its still an administrator
+  - [ ] Currently cannot clone volumes on a ZFS pool (do before creating secondary VMs)
