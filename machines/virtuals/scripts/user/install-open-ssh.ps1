@@ -14,12 +14,8 @@ $CurrentIdentity = [Security.Principal.WindowsPrincipal][Security.Principal.Wind
 $Elevated = @('', '(admin) ')[$CurrentIdentity.IsInRole($AdministratorRole)]
 $Runner = "${Elevated}$(whoami):"
 
-$xdgConfigHome = [IO.Path]::Combine( "${env:USERPROFILE}", '.config')
-[System.Environment]::SetEnvironmentVariable('XDG_CONFIG_HOME', $xdgConfigHome, 'USER')
-Write-Host "$Runner Set XDG_CONFIG_HOME environment variable"
-New-Item -ItemType Directory -Path $xdgConfigHome -Force | Out-Null
+# This might be a problem, because MS OpenSSH has already been installed...
+scoop install openssh
 
-$xdgDataHome = [IO.Path]::Combine( "${env:USERPROFILE}", '.local', 'share')
-[System.Environment]::SetEnvironmentVariable('XDG_DATA_HOME', $xdgDataHome, 'USER')
-Write-Host "$Runner Set XDG_DATA_HOME environment variable"
-New-Item -ItemType Directory -Path $xdgDataHome -Force | Out-Null
+# Alter git to use this version
+git config --global core.sshcommand ((Get-Command ssh).Source -replace '\\','/')

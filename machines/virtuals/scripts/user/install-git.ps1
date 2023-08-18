@@ -14,12 +14,11 @@ $CurrentIdentity = [Security.Principal.WindowsPrincipal][Security.Principal.Wind
 $Elevated = @('', '(admin) ')[$CurrentIdentity.IsInRole($AdministratorRole)]
 $Runner = "${Elevated}$(whoami):"
 
-$xdgConfigHome = [IO.Path]::Combine( "${env:USERPROFILE}", '.config')
-[System.Environment]::SetEnvironmentVariable('XDG_CONFIG_HOME', $xdgConfigHome, 'USER')
-Write-Host "$Runner Set XDG_CONFIG_HOME environment variable"
-New-Item -ItemType Directory -Path $xdgConfigHome -Force | Out-Null
+$gitConfigHome = [IO.Path]::Combine( "${env:XDG_CONFIG_HOME}", 'git', 'gitconfig')
+[System.Environment]::SetEnvironmentVariable('GIT_CONFIG_GLOBAL', $gitConfigHome, 'USER')
+Write-Host "$Runner Set GIT_CONFIG_GLOBAL environment variable"
 
-$xdgDataHome = [IO.Path]::Combine( "${env:USERPROFILE}", '.local', 'share')
-[System.Environment]::SetEnvironmentVariable('XDG_DATA_HOME', $xdgDataHome, 'USER')
-Write-Host "$Runner Set XDG_DATA_HOME environment variable"
-New-Item -ItemType Directory -Path $xdgDataHome -Force | Out-Null
+scoop install git
+
+git config --global --bool push.autoremote true
+git config --global core.sshcommand ((Get-Command ssh).Source -replace '\\','/')

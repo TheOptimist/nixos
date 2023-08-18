@@ -20,7 +20,7 @@ Write-Host "$Runner Pinned applications removed from taskbar"
 
 $RegistryPath = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
 Set-ItemProperty -Name 'TaskbarMn' -Value 0 -Type 'DWord' -Path $RegistryPath
-Write-Host "$Runner Chat removed taskbar"
+Write-Host "$Runner Chat removed from taskbar"
 
 $RegistryPath =  'HKCU:\Software\Microsoft\Windows\CurrentVersion\Search'
 Set-ItemProperty -Name 'SearchboxTaskbarMode' -Value 0 -Type 'DWord' -Path $RegistryPath

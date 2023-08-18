@@ -14,12 +14,9 @@ $CurrentIdentity = [Security.Principal.WindowsPrincipal][Security.Principal.Wind
 $Elevated = @('', '(admin) ')[$CurrentIdentity.IsInRole($AdministratorRole)]
 $Runner = "${Elevated}$(whoami):"
 
-$xdgConfigHome = [IO.Path]::Combine( "${env:USERPROFILE}", '.config')
-[System.Environment]::SetEnvironmentVariable('XDG_CONFIG_HOME', $xdgConfigHome, 'USER')
-Write-Host "$Runner Set XDG_CONFIG_HOME environment variable"
-New-Item -ItemType Directory -Path $xdgConfigHome -Force | Out-Null
+# VS Code is in the 'extras' bucket
+if (-Not $(scoop bucket list | Where-Object { $_.Name -eq 'extras') }) {
+  scoop bucket add extras
+}
 
-$xdgDataHome = [IO.Path]::Combine( "${env:USERPROFILE}", '.local', 'share')
-[System.Environment]::SetEnvironmentVariable('XDG_DATA_HOME', $xdgDataHome, 'USER')
-Write-Host "$Runner Set XDG_DATA_HOME environment variable"
-New-Item -ItemType Directory -Path $xdgDataHome -Force | Out-Null
+scoop install vscode
