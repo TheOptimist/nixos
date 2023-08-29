@@ -22,20 +22,21 @@
     };
   };
 
-  programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      bbenoist.nix
-      pkief.material-icon-theme
-      pkief.material-product-icons
-    ];
-    userSettings = {
-      "workbench.startupEditor" = "none";
-      "editor.tabSize" = 2;
-      "editor.indentSize" = "tabSize";
-      "workbench.productIconTheme" = "material-product-icons";
-    };
-  };
+#  programs.vscode = {
+#    enable = true;
+#    extensions = with pkgs.vscode-extensions; [
+#      bbenoist.nix
+#      pkief.material-icon-theme
+#      pkief.material-product-icons
+#    ];
+    # TODO: Don't put settings here as it makes it harder to change when in Code itself
+#    userSettings = {
+#      "workbench.startupEditor" = "none";
+#      "editor.tabSize" = 2;
+#      "editor.indentSize" = "tabSize";
+#      "workbench.productIconTheme" = "material-product-icons";
+#    };
+#  };
 
   xdg.enable = true;
   
