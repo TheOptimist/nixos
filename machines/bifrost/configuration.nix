@@ -103,6 +103,27 @@
     cdrkit
     swtpm
   ];
+
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+	  "FiraCode"
+	  "SourceCodePro"
+	  "IosevkaTerm"
+	  "Lekton"
+	  "Overpass"
+	];
+      })
+      fanwood
+      noto-fonts
+      crimson-pro
+      eb-garamond
+      lato
+      overpass
+    ];
+  };
   
   services.thermald.enable = true;
   environment.etc."sysconfig/lm_sensors".text = ''
