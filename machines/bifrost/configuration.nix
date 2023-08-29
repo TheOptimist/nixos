@@ -140,6 +140,10 @@
   
   services.pcscd.enable = true;
   services.printing.enable = true;
+  services.printing.drivers = [
+    pkgs.gutenprint
+    pkgs.epson-escpr
+  ];
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
   # for a WiFi printer
@@ -218,7 +222,7 @@
       };
 
       george = {
-	      uid = 1000;
+        uid = 1000;
         isNormalUser = true;
         initialHashedPassword = "\$6\$I/LockFIWSLzZkLY\$xAftwpPCTzg/XwXq77UasTCRU89kF9fJLLFSabdbCaizouVO2Gw/jYfdQfOVtxrNXGwLMJj9JsGZiX5pp953l/";
         group = "users";
