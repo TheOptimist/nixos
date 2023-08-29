@@ -15,8 +15,6 @@
   nix.package = pkgs.nixFlakes;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  nixpkgs.config.allowUnfree = true;
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -68,7 +66,21 @@
   systemd.services.NetworkManager.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    element-desktop = pkgs.element-desktop.overrideAttrs (old: {
+      desktopItem = old.desktopItem.override (old: {
+        exec = "element-desktop --disable-gpu --in-process-gpu %u";
+      });
+    });
+  };
+
+  services.emacs = {
+#    enable = true;
+    package = pkgs.emacs-unstable;
+  };
+
   environment.systemPackages = with pkgs; [
+    emacs
     git
     firefox
     autorandr
@@ -76,10 +88,14 @@
     virt-manager
     element-desktop
     google-chrome
+    lefthook
+    gimp
     (vivaldi.override {
       proprietaryCodecs = true;
       enableWidevine = true;
     })
+    dmidecode
+    hwinfo
     liquidctl
     lm_sensors
     packer
