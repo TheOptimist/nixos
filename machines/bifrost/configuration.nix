@@ -1,17 +1,16 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
+  imports = [ 
+    ./hardware-configuration.nix
+  ];
 
-  nix.nixPath =
-    [
-      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "nixos-config=/home/george/.nixos/flake.nix"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
+  nix.nixPath = [
+    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+    "nixos-config=/home/george/.nixos/flake.nix"
+    "/nix/var/nix/profiles/per-user/root/channels"
+  ];
+  
   nix.package = pkgs.nixFlakes;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -82,6 +81,8 @@
   environment.systemPackages = with pkgs; [
     emacs
     git
+    ripgrep
+    fd
     firefox
     autorandr
     lastpass-cli
