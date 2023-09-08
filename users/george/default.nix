@@ -6,7 +6,7 @@
   home.homeDirectory = "/home/george";
 
   home.packages = with pkgs; [
-    exa
+    eza
   ];
   
   programs.home-manager.enable = true;
