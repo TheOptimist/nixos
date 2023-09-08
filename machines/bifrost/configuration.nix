@@ -17,7 +17,6 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   boot.plymouth.enable = true;
 
   # source: https://grahamc.com/blog/erase-your-darlings
@@ -46,12 +45,14 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     open = false;
     modesetting.enable = true;
+#    powerManagement.enable = true;
   };
 
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [ vaapiVdpau ];
   };
 
   networking.hostId = "0d5142d8";
@@ -99,6 +100,7 @@
     hwinfo
     liquidctl
     lm_sensors
+    pciutils
     packer
     cdrkit
     swtpm
@@ -212,6 +214,11 @@
     videoDrivers = [ "nvidia" ];
 
     libinput.enable = true;
+    screenSection = ''
+      Option    "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+      Option    "AllowIndirectGLXProtocol" "off"
+      Option    "TipleBuffer" "on"
+    '';
   };
 
   users = {
