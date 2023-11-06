@@ -143,7 +143,6 @@
   services.pcscd.enable = true;
   services.printing.enable = true;
   services.printing.drivers = [
-    pkgs.gutenprint
     pkgs.epson-escpr
   ];
   services.avahi.enable = true;
