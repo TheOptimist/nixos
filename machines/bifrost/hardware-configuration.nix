@@ -6,7 +6,7 @@
 let
   impermanence = fetchTarball {
     url = https://github.com/nix-community/impermanence/archive/master.tar.gz;
-    sha256 = "1kypb376fyxqb1nn65j579nm5cl5cyrhghcbf2ajgpdpszbv728q";
+    sha256 = "120775fbfar2x1s5ijkxnvb8p0mmk3dlbq0lzfhsi0csfynp98ki";
   };
 
 in {
@@ -57,7 +57,7 @@ in {
   swapDevices = [ ];
 
   hardware.bluetooth.enable = true;
-  
+
   environment.persistence."/persist" = {
     directories = [
       "/etc/nixos"

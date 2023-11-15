@@ -5,11 +5,11 @@
     ./hardware-configuration.nix
   ];
 
-  nix.nixPath = [
-    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
-    "nixos-config=/home/george/.nixos/flake.nix"
-    "/nix/var/nix/profiles/per-user/root/channels"
-  ];
+#  nix.nixPath = [
+#    "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+#    "nixos-config=/home/george/.nixos/flake.nix"
+#    "/nix/var/nix/profiles/per-user/root/channels"
+#  ];
   
   nix.package = pkgs.nixFlakes;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -66,13 +66,13 @@
   systemd.services.NetworkManager.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  nixpkgs.config.packageOverrides = pkgs: {
-    element-desktop = pkgs.element-desktop.overrideAttrs (old: {
-      desktopItem = old.desktopItem.override (old: {
-        exec = "element-desktop --disable-gpu --in-process-gpu %u";
-      });
-    });
-  };
+#  nixpkgs.config.packageOverrides = pkgs: {
+#    element-desktop = pkgs.element-desktop.overrideAttrs (old: {
+#      desktopItem = old.desktopItem.override (old: {
+#        exec = "element-desktop --disable-gpu --in-process-gpu %u";
+#      });
+#    });
+#  };
 
   services.emacs = {
 #    enable = true;
@@ -90,6 +90,7 @@
     virt-manager
     element-desktop
     google-chrome
+    microsoft-edge
     lefthook
     gimp
     (vivaldi.override {
@@ -104,6 +105,8 @@
     packer
     cdrkit
     swtpm
+    via
+    remmina
   ];
 
   fonts = {
@@ -220,6 +223,7 @@
     '';
   };
 
+  services.udev.packages = with pkgs; [ via ];
   users = {
     mutableUsers = false;
     users = {
