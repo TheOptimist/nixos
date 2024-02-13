@@ -45,7 +45,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     open = false;
     modesetting.enable = true;
-#    powerManagement.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
   };
 
   hardware.opengl = {
@@ -85,28 +86,34 @@
     ripgrep
     fd
     firefox
+    geekbench
     autorandr
     lastpass-cli
     virt-manager
     element-desktop
+    signal-desktop
     google-chrome
     microsoft-edge
+    headsetcontrol
     lefthook
     gimp
-    (vivaldi.override {
-      proprietaryCodecs = true;
-      enableWidevine = true;
-    })
+    vivaldi
     dmidecode
     hwinfo
     liquidctl
     lm_sensors
+    openrgb
     pciutils
-    packer
     cdrkit
     swtpm
     via
+    vial
     remmina
+    zoom-us
+    teams-for-linux
+    yubikey-manager
+    xorg.xset
+    gnomeExtensions.appindicator
   ];
 
   fonts = {
@@ -149,7 +156,7 @@
     pkgs.epson-escpr
   ];
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   # for a WiFi printer
   services.avahi.openFirewall = true;
 
@@ -204,6 +211,7 @@
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
+    displayManager.gdm.wayland = false;
     # Not really sure I like this approach tbh. It does work for the login screen, but autorandr
     # still needs to run on user login, otherwise the display characteristics are reset
     displayManager.setupCommands = ''
@@ -223,7 +231,11 @@
     '';
   };
 
-  services.udev.packages = with pkgs; [ via ];
+  services.udev.packages = with pkgs; [
+    via
+    vial
+    gnome.gnome-settings-daemon
+  ];
   users = {
     mutableUsers = false;
     users = {
