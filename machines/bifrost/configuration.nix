@@ -1,4 +1,16 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, stdenv, ... }:
+
+#let
+#  teams-for-linux = pkgs.teams-for-linux.overrideAttrs (old: rec {
+    
+
+#  nixpkgs.config.packageOverrides = pkgs: {
+#    element-desktop = pkgs.element-desktop.overrideAttrs (old: {
+#      desktopItem = old.desktopItem.override (old: {
+#        exec = "element-desktop --disable-gpu --in-process-gpu %u";
+#      });
+#    });
+#  };
 
 {
   imports = [ 
@@ -67,14 +79,6 @@
   systemd.services.NetworkManager.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-#  nixpkgs.config.packageOverrides = pkgs: {
-#    element-desktop = pkgs.element-desktop.overrideAttrs (old: {
-#      desktopItem = old.desktopItem.override (old: {
-#        exec = "element-desktop --disable-gpu --in-process-gpu %u";
-#      });
-#    });
-#  };
-
   services.emacs = {
 #    enable = true;
     package = pkgs.emacs-unstable;
@@ -115,6 +119,8 @@
     xorg.xset
     gnomeExtensions.appindicator
   ];
+
+  programs.dconf.enable = true;
 
   fonts = {
     enableDefaultPackages = true;
@@ -236,6 +242,7 @@
     vial
     gnome.gnome-settings-daemon
   ];
+
   users = {
     mutableUsers = false;
     users = {
