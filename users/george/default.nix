@@ -22,6 +22,11 @@
     };
   };
 
+  dconf.settings = {
+    "org/gnome/shell".enabled-extensions = [
+      "appindicatorsupport@rgcjonas.gmail.com"
+    ];
+  };
 #  programs.vscode = {
 #    enable = true;
 #    extensions = with pkgs.vscode-extensions; [
