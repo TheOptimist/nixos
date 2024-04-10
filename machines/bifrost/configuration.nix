@@ -1,17 +1,5 @@
 { config, pkgs, lib, stdenv, ... }:
 
-#let
-#  teams-for-linux = pkgs.teams-for-linux.overrideAttrs (old: rec {
-    
-
-#  nixpkgs.config.packageOverrides = pkgs: {
-#    element-desktop = pkgs.element-desktop.overrideAttrs (old: {
-#      desktopItem = old.desktopItem.override (old: {
-#        exec = "element-desktop --disable-gpu --in-process-gpu %u";
-#      });
-#    });
-#  };
-
 {
   imports = [ 
     ./hardware-configuration.nix
@@ -80,7 +68,7 @@
   systemd.services.NetworkManager-wait-online.enable = false;
 
   services.emacs = {
-#    enable = true;
+    enable = true;
     package = pkgs.emacs-unstable;
   };
 

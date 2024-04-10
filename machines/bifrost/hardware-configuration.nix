@@ -6,7 +6,7 @@
 let
   impermanence = fetchTarball {
     url = https://github.com/nix-community/impermanence/archive/master.tar.gz;
-    sha256 = "1pdsiwynmyxhkmh4d8wj56fsh8zb529vqwbwibgi1h4lvy7vi889";
+    sha256 = "1mig6ns8l5iynsm6pfbnx2b9hmr592s1kqbw6gq1n25czdlcniam";
   };
 
 in {
@@ -21,7 +21,7 @@ in {
   boot.kernelModules = [ "k10temp" "nct6775" "i2c-dev" "i2c-piix4" ];
   boot.extraModulePackages = [ ];
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  boot.zfs.enableUnstable = true;
+  boot.zfs.package = pkgs.zfs_unstable;
 
   fileSystems."/" = {
     device = "rpool/local/root";

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
 
@@ -27,6 +27,7 @@
       "appindicatorsupport@rgcjonas.gmail.com"
     ];
   };
+
 #  programs.vscode = {
 #    enable = true;
 #    extensions = with pkgs.vscode-extensions; [
@@ -44,7 +45,16 @@
 #  };
 
   xdg.enable = true;
-  
+  xdg.desktopEntries = {
+    custom_teams = {
+      name = "Microsoft Teams for Linux";
+      exec = "${pkgs.teams-for-linux.pname} --defaultURLHandler=${pkgs.microsoft-edge}/bin/microsoft-edge";
+      icon = pkgs.teams-for-linux.pname;
+      comment = pkgs.teams-for-linux.meta.description;
+      categories = [ "Network" "InstantMessaging" "Chat" ];
+    };
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards

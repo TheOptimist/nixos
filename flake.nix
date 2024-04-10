@@ -38,7 +38,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.george = (import ./users/george);
+              home-manager.users.george = (import ./users/george { inherit system pkgs inputs; });
             }
           ];
         };
