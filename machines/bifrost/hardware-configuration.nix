@@ -65,7 +65,6 @@ in {
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/libvirt"
-      "/root/.config/packer"
     ];
     files = [ 
       "/etc/machine-id"
