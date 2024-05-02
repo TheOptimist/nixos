@@ -17,7 +17,7 @@ in {
   ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "k10temp" "nct6775" "i2c-dev" "i2c-piix4" ];
   boot.extraModulePackages = [ ];
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;

@@ -41,14 +41,6 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    open = false;
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-  };
-
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -106,6 +98,7 @@
     yubikey-manager
     xorg.xset
     gnomeExtensions.appindicator
+    usbutils
   ];
 
   programs.dconf.enable = true;
@@ -215,14 +208,12 @@
     '';
     desktopManager.gnome.enable = true;
 
-    videoDrivers = [ "nvidia" ];
-
     libinput.enable = true;
-    screenSection = ''
-      Option    "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-      Option    "AllowIndirectGLXProtocol" "off"
-      Option    "TipleBuffer" "on"
-    '';
+#    screenSection = ''
+#      Option    "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+#      Option    "AllowIndirectGLXProtocol" "off"
+#      Option    "TipleBuffer" "on"
+#    '';
   };
 
   services.udev.packages = with pkgs; [
