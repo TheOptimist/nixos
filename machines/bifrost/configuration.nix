@@ -67,6 +67,7 @@
   environment.systemPackages = with pkgs; [
     emacs
     git
+    kitty
     ripgrep
     fd
     firefox
