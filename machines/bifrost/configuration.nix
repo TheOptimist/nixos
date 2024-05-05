@@ -1,8 +1,9 @@
 { config, pkgs, lib, stdenv, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
+    ./shell.nix
   ];
 
 #  nix.nixPath = [

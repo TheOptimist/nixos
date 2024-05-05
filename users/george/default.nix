@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./shell.nix
+    ./terminal.nix
+  ];
 
   home.username = "george";
   home.homeDirectory = "/home/george";
