@@ -67,6 +67,7 @@
 
   environment.systemPackages = with pkgs; [
     emacs
+    awscli2
     git
     kitty
     ripgrep

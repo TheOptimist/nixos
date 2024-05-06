@@ -2,12 +2,19 @@
 
 {
   imports = [
-    ./shell.nix
+    ./shell
     ./terminal.nix
   ];
 
   home.username = "george";
   home.homeDirectory = "/home/george";
+
+  home.sessionVariables = {
+    AWS_CONFIG_FILE = "\${XDG_CONFIG_HOME}/aws/config";
+    AWS_DATA_PATH = "\${XDG_DATA_HOME}/aws/modles";
+    AWS_SHARED_CREDENTIALS_FILE = "\${XDG_CONFIG_HOME}/aws/credentials";
+    AWS_DEFAULT_OUTPUT = "json";
+  };
 
   home.packages = with pkgs; [
     eza

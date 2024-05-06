@@ -1,9 +1,10 @@
 { config, ...  }:
 
 {
-  programs.fish = {
-    enable = true;
-  };
+  imports = [
+    ./fish
+    ./zsh
+  ];
 
   programs.starship = {
     enable = true;
