@@ -16,10 +16,10 @@
     AWS_DEFAULT_OUTPUT = "json";
   };
 
-  home.packages = with pkgs; [
-    eza
-  ];
-  
+  programs.bat.enable = true;
+  programs.eza.enable = true;
+  programs.jq.enable = true;
+
   programs.home-manager.enable = true;
 
   programs.git = {
@@ -32,6 +32,12 @@
       };
     };
   };
+
+  xdg.configFile."git/work/config".text = ''
+[user]
+    name = "George Cover"
+    email = "gcover@uplandsoftware.com"
+'';
 
   dconf.settings = {
     "org/gnome/shell".enabled-extensions = [

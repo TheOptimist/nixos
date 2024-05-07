@@ -10,7 +10,6 @@ function aws() {
     command aws $@
 
     if [[ "$(xdg-mime query default $httpsHandler)" != "$currentHandler" ]]; then
-        echo "Restoring $httpsHandler to $defaultHandler"
         xdg-mime default "$currentHandler" "$httpsHandler"
     fi
 }

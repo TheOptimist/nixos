@@ -7,10 +7,10 @@ in {
   programs.zsh = {
     enable = true;
 
-    dotDir = "\${XDG_CONFIG_HOME}/zsh";
+    dotDir = ".config/zsh";
 
     history = {
-      path = "\${XDG_CONFIG_HOME}/.history";
+      path = ".config/zsh/history";
       size = 5000;
       save = 50000;
       ignoreAllDups = true;
