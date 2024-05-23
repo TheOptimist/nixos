@@ -1,6 +1,9 @@
-{ pkgs, ... }:
+{ system, inputs, pkgs, ... }:
 
-{
+let
+  extensions = inputs.nix-vscode-extensions.extensions.${system};
+
+in {
   imports = [
     ./shell
     ./terminal.nix
@@ -16,11 +19,11 @@
     AWS_DEFAULT_OUTPUT = "json";
   };
 
-  programs.bat.enable = true;
-  programs.eza.enable = true;
-  programs.jq.enable = true;
-
   programs.home-manager.enable = true;
+
+  home.packages = with pkgs; [
+    pinta
+  ];
 
   programs.git = {
     enable = true;
@@ -33,7 +36,7 @@
     };
   };
 
-  xdg.configFile."git/work/config".text = ''
+  xdg.configFile."git/config_work".text = ''
 [user]
     name = "George Cover"
     email = "gcover@uplandsoftware.com"
@@ -45,13 +48,19 @@
     ];
   };
 
-#  programs.vscode = {
-#    enable = true;
-#    extensions = with pkgs.vscode-extensions; [
-#      bbenoist.nix
-#      pkief.material-icon-theme
-#      pkief.material-product-icons
-#    ];
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscodium;
+    extensions = with extensions.open-vsx; [
+      pkief.material-icon-theme
+      pkief.material-product-icons
+      streetsidesoftware.code-spell-checker
+      usernamehw.errorlens
+      eamodio.gitlens
+      yzhang.markdown-all-in-one
+      jdinhlife.gruvbox
+    ];
+  };
     # TODO: Don't put settings here as it makes it harder to change when in Code itself
 #    userSettings = {
 #      "workbench.startupEditor" = "none";
