@@ -71,15 +71,13 @@ in {
 #  };
 
   xdg.enable = true;
-  xdg.desktopEntries = {
-    custom_teams = {
-      name = "Microsoft Teams for Linux";
-      exec = "${pkgs.teams-for-linux.pname} --defaultURLHandler=${pkgs.microsoft-edge}/bin/microsoft-edge";
-      icon = pkgs.teams-for-linux.pname;
-      comment = pkgs.teams-for-linux.meta.description;
-      categories = [ "Network" "InstantMessaging" "Chat" ];
-    };
-  };
+
+  xdg.configFile."teams-for-linux/config.json".text = ''
+{
+  "defaultURLHandler": "${pkgs.microsoft-edge}/bin/microsoft-edge",
+  "closeAppOnCross": true
+}
+'';
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
