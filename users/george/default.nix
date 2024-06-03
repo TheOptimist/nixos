@@ -75,7 +75,8 @@ in {
   xdg.configFile."teams-for-linux/config.json".text = ''
 {
   "defaultURLHandler": "${pkgs.microsoft-edge}/bin/microsoft-edge",
-  "closeAppOnCross": true
+  "closeAppOnCross": true,
+  "optInTeamsV2": true
 }
 '';
 
