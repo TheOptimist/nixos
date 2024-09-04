@@ -23,7 +23,14 @@ in {
 
   home.packages = with pkgs; [
     pinta
+    hugo
   ];
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
 
   programs.git = {
     enable = true;
@@ -59,6 +66,8 @@ in {
       eamodio.gitlens
       yzhang.markdown-all-in-one
       jdinhlife.gruvbox
+      bbenoist.nix
+      gruntfuggly.todo-tree
     ];
   };
     # TODO: Don't put settings here as it makes it harder to change when in Code itself

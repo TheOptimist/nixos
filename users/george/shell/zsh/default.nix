@@ -10,7 +10,7 @@ in {
     dotDir = ".config/zsh";
 
     history = {
-      path = ".config/zsh/history";
+      path = "$ZDOTDIR/history";
       size = 5000;
       save = 50000;
       ignoreAllDups = true;
