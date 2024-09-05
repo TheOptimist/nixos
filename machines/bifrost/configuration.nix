@@ -42,10 +42,10 @@
 
   security.sudo.wheelNeedsPassword = false;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    #driSupport = true;
+    #driSupport32Bit = true;
     extraPackages = with pkgs; [ vaapiVdpau ];
   };
 
@@ -218,7 +218,7 @@
   services.udev.packages = with pkgs; [
     via
     vial
-    gnome.gnome-settings-daemon
+    gnome-settings-daemon
   ];
 
   users = {
