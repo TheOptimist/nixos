@@ -53,7 +53,6 @@
   networking.hostName = "bifrost";
 
   networking.useDHCP = false;
-  networking.interfaces.enp7s0.useDHCP = true;
   networking.interfaces.br0.useDHCP = true;
   networking.bridges.br0.interfaces = [ "enp7s0" ];
   
@@ -107,24 +106,31 @@
   programs.dconf.enable = true;
 
   fonts = {
-    enableDefaultPackages = true;
     packages = with pkgs; [
       (nerdfonts.override {
         fonts = [
-	  "FiraCode"
-	  "SourceCodePro"
-	  "IosevkaTerm"
-	  "Lekton"
-	  "Overpass"
-	];
+          "FiraCode"
+          "SourceCodePro"
+          "IosevkaTerm"
+          "Lekton"
+          "Overpass"
+        ];
       })
       fanwood
       noto-fonts
+      noto-fonts-emoji
       crimson-pro
       eb-garamond
       lato
       overpass
     ];
+    fontconfig = {
+      defaultFonts = {
+        serif = [ "NotoSerif" ];
+        sansSerif = [ "NotoSans" ];
+        monospace = [ "FiraCode Nerd Font Mono" ];
+      };
+    };
   };
   
   services.thermald.enable = true;
