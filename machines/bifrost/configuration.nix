@@ -81,6 +81,7 @@
     google-chrome
     microsoft-edge
     headsetcontrol
+    obsidian
     lefthook
     gimp
     vivaldi
@@ -101,6 +102,7 @@
     xorg.xset
     gnomeExtensions.appindicator
     usbutils
+    podman
   ];
 
   programs.dconf.enable = true;
