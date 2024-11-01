@@ -68,6 +68,7 @@ in {
       jdinhlife.gruvbox
       bbenoist.nix
       gruntfuggly.todo-tree
+      jeanp413.open-remote-ssh
     ];
   };
     # TODO: Don't put settings here as it makes it harder to change when in Code itself

@@ -25,7 +25,10 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ emacs-overlay.overlay ];
+        overlays = [
+          emacs-overlay.overlay
+          (import ./overlays/vivaldi.nix)
+        ];
       };
     in {
 
