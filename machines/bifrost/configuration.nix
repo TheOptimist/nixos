@@ -18,6 +18,7 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
   boot.plymouth.enable = true;
 
   # source: https://grahamc.com/blog/erase-your-darlings
@@ -93,12 +94,9 @@
     pciutils
     cdrkit
     swtpm
-    via
     vial
-    remmina
     zoom-us
     teams-for-linux
-    yubikey-manager
     xorg.xset
     gnomeExtensions.appindicator
     usbutils

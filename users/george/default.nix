@@ -58,7 +58,7 @@ in {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-    extensions = with extensions.open-vsx; [
+    extensions = with pkgs.vscode-extensions; [
       pkief.material-icon-theme
       pkief.material-product-icons
       streetsidesoftware.code-spell-checker
@@ -68,7 +68,6 @@ in {
       jdinhlife.gruvbox
       bbenoist.nix
       gruntfuggly.todo-tree
-      jeanp413.open-remote-ssh
     ];
   };
     # TODO: Don't put settings here as it makes it harder to change when in Code itself

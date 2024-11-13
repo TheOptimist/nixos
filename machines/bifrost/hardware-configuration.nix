@@ -6,7 +6,7 @@
 let
   impermanence = fetchTarball {
     url = https://github.com/nix-community/impermanence/archive/master.tar.gz;
-    sha256 = "1mig6ns8l5iynsm6pfbnx2b9hmr592s1kqbw6gq1n25czdlcniam";
+    sha256 = "0s6wb425pp2906mavcpwk9mnjw94xhzmvhqf711986kzlbjlflav";
   };
 
 in {
@@ -54,7 +54,7 @@ in {
     device = "rpool/safe/images";
     fsType = "zfs";
   };
-  
+
   swapDevices = [ ];
 
   hardware.bluetooth.enable = true;
@@ -66,6 +66,7 @@ in {
       "/var/log"
       "/var/lib/bluetooth"
       "/var/lib/libvirt"
+      "/var/lib/nixos"
     ];
     files = [ 
       "/etc/machine-id"
