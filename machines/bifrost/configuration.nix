@@ -97,6 +97,7 @@
     vial
     zoom-us
     teams-for-linux
+    rpi-imager
     xorg.xset
     gnomeExtensions.appindicator
     usbutils
