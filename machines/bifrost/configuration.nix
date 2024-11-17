@@ -102,6 +102,9 @@
     gnomeExtensions.appindicator
     usbutils
     podman
+    glxinfo
+    leocad
+    testdisk
   ];
 
   programs.dconf.enable = true;
