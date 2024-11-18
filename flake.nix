@@ -16,6 +16,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nil = {
+      url = "github:oxalica/nil";
+    };
+
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
@@ -28,6 +32,7 @@
         overlays = [
           emacs-overlay.overlay
           (import ./overlays/vivaldi.nix)
+          (import ./overlays/logitech.nix)
         ];
       };
     in {
@@ -45,6 +50,7 @@
               home-manager.useUserPackages = true;
               home-manager.users.george = (import ./users/george { inherit system pkgs inputs; });
             }
+
           ];
         };
       };

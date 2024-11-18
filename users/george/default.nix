@@ -66,7 +66,7 @@ in {
       eamodio.gitlens
       yzhang.markdown-all-in-one
       jdinhlife.gruvbox
-      bbenoist.nix
+      jnoortheen.nix-ide
       gruntfuggly.todo-tree
     ];
   };

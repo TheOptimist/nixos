@@ -6,7 +6,8 @@
 let
   impermanence = fetchTarball {
     url = https://github.com/nix-community/impermanence/archive/master.tar.gz;
-    sha256 = "0s6wb425pp2906mavcpwk9mnjw94xhzmvhqf711986kzlbjlflav";
+    sha256 = "sha256:1k30ig9b5bx51f0y617yvcn61bgpahf8r0i55mnl3hy6nqjbfw07";
+    
   };
 
 in {
@@ -58,6 +59,7 @@ in {
   swapDevices = [ ];
 
   hardware.bluetooth.enable = true;
+  hardware.logitech.wireless.enable = true;
 
   environment.persistence."/persist" = {
     directories = [

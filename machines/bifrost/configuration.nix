@@ -1,4 +1,4 @@
-{ config, pkgs, lib, stdenv, ... }:
+{ pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -105,7 +105,11 @@
     glxinfo
     leocad
     testdisk
+    piper
+    inputs.nil.packages."${system}".nil
   ];
+
+  services.ratbagd.enable = true;
 
   programs.dconf.enable = true;
 
