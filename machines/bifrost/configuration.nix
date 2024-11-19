@@ -105,8 +105,9 @@
     glxinfo
     leocad
     testdisk
+    solaar
     piper
-    inputs.nil.packages."${system}".nil
+    nil
   ];
 
   services.ratbagd.enable = true;

@@ -16,10 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nil = {
-      url = "github:oxalica/nil";
-    };
-
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 

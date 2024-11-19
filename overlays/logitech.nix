@@ -11,10 +11,10 @@ final: prev: {
 
   piper = prev.piper.overrideAttrs(old: {
     src = prev.fetchFromGitHub {
-      owner = "libratbag";
+      owner = "TheOptimist";
       repo = "piper";
-      rev = "0.8";
-      hash = "sha256-j58fL6jJAzeagy5/1FmygUhdBm+PAlIkw22Rl/fLff4=";
+      rev = "9ab64f5e54b8d6e90d720605ae4a5fbccf46c44b";
+      hash = "sha256-vqdUP7Uq4+Xqm0Xm/P5V85phQruTjMkLso9LJiprg3g=";
     };
 
     mesonFlags = [
