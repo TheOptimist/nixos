@@ -108,6 +108,8 @@
     solaar
     piper
     nil
+    geekbench
+    remmina
   ];
 
   services.ratbagd.enable = true;

@@ -5,9 +5,8 @@
 
 let
   impermanence = fetchTarball {
-    url = https://github.com/nix-community/impermanence/archive/master.tar.gz;
+    url = "https://github.com/nix-community/impermanence/archive/master.tar.gz";
     sha256 = "sha256:1k30ig9b5bx51f0y617yvcn61bgpahf8r0i55mnl3hy6nqjbfw07";
-    
   };
 
 in {
@@ -20,6 +19,9 @@ in {
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelModules = [ "k10temp" "nct6775" "i2c-dev" "i2c-piix4" ];
+  boot.kernelParams = [
+    "usbcore.autosuspend=-1"
+  ];
   boot.extraModulePackages = [ ];
   # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # boot.kernelPackages = pkgs.linuxPackages_6_10;
