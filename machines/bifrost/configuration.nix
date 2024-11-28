@@ -67,7 +67,6 @@
 
   environment.systemPackages = with pkgs; [
     emacs
-    awscli2
     git
     kitty
     ripgrep
@@ -83,36 +82,30 @@
     microsoft-edge
     headsetcontrol
     obsidian
-    lefthook
     gimp
     myvivaldi
     dmidecode
     hwinfo
-    liquidctl
     lm_sensors
     openrgb
-    pciutils
-    cdrkit
     swtpm
     vial
     zoom-us
     teams-for-linux
-    rpi-imager
-    xorg.xset
     gnomeExtensions.appindicator
     usbutils
     podman
-    glxinfo
     leocad
     testdisk
-    solaar
-    piper
     nil
     geekbench
     remmina
   ];
 
-  services.ratbagd.enable = true;
+  services.hardware.openrgb = {
+    enable = true;
+    motherboard = "amd";
+  };
 
   programs.dconf.enable = true;
 
