@@ -24,7 +24,7 @@ in {
   ];
   boot.extraModulePackages = [ ];
   # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  # boot.kernelPackages = pkgs.linuxPackages_6_10;
+  boot.kernelPackages = pkgs.linuxPackages_6_11;
   boot.zfs.package = pkgs.zfs_unstable;
 
   fileSystems."/" = {
