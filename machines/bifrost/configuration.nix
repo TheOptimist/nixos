@@ -80,6 +80,7 @@
     signal-desktop
     google-chrome
     microsoft-edge
+    nvme-cli
     headsetcontrol
     obsidian
     gimp
