@@ -96,6 +96,7 @@
     gnomeExtensions.appindicator
     usbutils
     podman
+    docker
     leocad
     testdisk
     nil
