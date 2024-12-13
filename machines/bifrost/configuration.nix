@@ -96,7 +96,6 @@
     gnomeExtensions.appindicator
     usbutils
     podman
-    docker
     leocad
     testdisk
     nil
@@ -104,6 +103,13 @@
     remmina
   ];
 
+  virtualisation.docker = {
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+  
   services.hardware.openrgb = {
     enable = true;
     motherboard = "amd";
@@ -113,22 +119,17 @@
 
   fonts = {
     packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "SourceCodePro"
-          "IosevkaTerm"
-          "Lekton"
-          "Overpass"
-        ];
-      })
+      nerd-fonts.fira-code
+      nerd-fonts.sauce-code-pro
+      nerd-fonts.iosevka-term
+      nerd-fonts.lekton
+      nerd-fonts.overpass
       fanwood
       noto-fonts
       noto-fonts-emoji
       crimson-pro
       eb-garamond
       lato
-      overpass
     ];
     fontconfig = {
       defaultFonts = {

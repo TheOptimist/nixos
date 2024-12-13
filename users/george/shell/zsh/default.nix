@@ -1,4 +1,4 @@
-{ pkgs, ...  }:
+{ ...  }:
 
 let
   functions = builtins.readFile ./functions.sh;
@@ -25,6 +25,9 @@ in {
 
     shellAliases = {
       ls = "eza";
+      ll = "ls -a";
+      
+      sz = "sudo du -h -d 1 --exclude proc --exclude run | sort -h";
     };
 
     initExtra = ''

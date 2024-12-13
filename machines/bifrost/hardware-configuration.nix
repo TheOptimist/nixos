@@ -66,6 +66,7 @@ in {
       "/var/lib/bluetooth"
       "/var/lib/libvirt"
       "/var/lib/nixos"
+      "/var/lib/docker"
     ];
     files = [ 
       "/etc/machine-id"

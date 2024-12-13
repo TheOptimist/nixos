@@ -1,4 +1,4 @@
-{ config, ...  }:
+{ ...  }:
 
 {
   imports = [
@@ -16,8 +16,14 @@
     --theme="gruvbox-dark"
   '';
 
-  programs.eza.enable = true;
-  home.sessionVariables.EZA_ICONS_AUTO = "true";
-
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = false;
+    extraOptions = [ "--long" "--group" ];
+    icons = "always";
+    colors = "always";
+    git = true;
+  };
+  
   programs.jq.enable = true;
 }

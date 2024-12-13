@@ -19,14 +19,15 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-overlay, ... }@inputs: 
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: 
     let 
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
         overlays = [
-          emacs-overlay.overlay
+          inputs.nix-vscode-extensions.overlays.default
+          inputs.emacs-overlay.overlay
           (import ./overlays/vivaldi.nix)
           (import ./overlays/logitech.nix)
         ];

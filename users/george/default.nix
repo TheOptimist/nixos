@@ -1,9 +1,6 @@
-{ system, inputs, pkgs, ... }:
+{ pkgs, ... }:
 
-let
-  extensions = inputs.nix-vscode-extensions.extensions.${system};
-
-in {
+{
   imports = [
     ./shell
     ./terminal.nix
@@ -55,20 +52,21 @@ in {
     ];
   };
 
-  programs.vscode = {
+  programs.vscode = with pkgs; {
     enable = true;
-    package = pkgs.vscodium;
-    extensions = with pkgs.vscode-extensions; [
+    package = vscodium;
+    extensions = (with open-vsx; [
       pkief.material-icon-theme
       pkief.material-product-icons
       streetsidesoftware.code-spell-checker
+      jeanp413.open-remote-ssh
       usernamehw.errorlens
       eamodio.gitlens
       yzhang.markdown-all-in-one
       jdinhlife.gruvbox
       jnoortheen.nix-ide
       gruntfuggly.todo-tree
-    ];
+    ]);
   };
     # TODO: Don't put settings here as it makes it harder to change when in Code itself
 #    userSettings = {
