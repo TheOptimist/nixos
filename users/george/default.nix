@@ -66,6 +66,7 @@
       jdinhlife.gruvbox
       jnoortheen.nix-ide
       gruntfuggly.todo-tree
+      tamasfe.even-better-toml
     ]);
   };
     # TODO: Don't put settings here as it makes it harder to change when in Code itself
