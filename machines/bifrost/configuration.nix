@@ -70,6 +70,7 @@
     git
     kitty
     ripgrep
+    discord
     fd
     firefox
     geekbench
