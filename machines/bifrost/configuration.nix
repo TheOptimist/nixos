@@ -91,7 +91,7 @@
     lm_sensors
     openrgb
     swtpm
-    vial
+    via
     zoom-us
     teams-for-linux
     gnomeExtensions.appindicator
@@ -229,11 +229,13 @@
 
   services.libinput.enable = true;
 
+  # Bus 003 Device 009: ID 1ea7:cc65 SHARKOON Technologies GmbH zoom65 wireless
+  
   services.udev.packages = with pkgs; [
     via
-    vial
     gnome-settings-daemon
   ];
+  hardware.keyboard.qmk.enable = true;
 
   users = {
     mutableUsers = false;
@@ -247,7 +249,7 @@
         isNormalUser = true;
         initialHashedPassword = "\$6\$I/LockFIWSLzZkLY\$xAftwpPCTzg/XwXq77UasTCRU89kF9fJLLFSabdbCaizouVO2Gw/jYfdQfOVtxrNXGwLMJj9JsGZiX5pp953l/";
         group = "users";
-        extraGroups = [ "wheel" "libvirtd" ];
+        extraGroups = [ "wheel" "libvirtd" "input" ];
         createHome = true;
         home = "/home/george";
         useDefaultShell = true;
