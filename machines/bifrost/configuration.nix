@@ -85,7 +85,7 @@
     headsetcontrol
     obsidian
     gimp
-    myvivaldi
+    vivaldi
     dmidecode
     hwinfo
     lm_sensors
