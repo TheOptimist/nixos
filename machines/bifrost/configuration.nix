@@ -242,6 +242,8 @@
     users = {
       root = {
         initialHashedPassword = "\$6\$4Wn3sb5O0PiXRtCw\$qTEslSEB0uFrWyoIuy7NpCxSH2GmuFfTRtnbDqb30MGZmLqpi7BmcZwC375VN0fkEYY6bGiiE9AlKlc6v0sa31";
+        createHome = true;
+        home = lib.mkDefault "/home/root";
       };
 
       george = {
