@@ -257,6 +257,14 @@
     };
   };
 
+  # Modify webcam so it can be forwarded over RDP
+  # https://gitlab.com/Remmina/Remmina/-/issues/2320
+  # https://github.com/FreeRDP/FreeRDP/issues/6651
+  # https://stackoverflow.com/questions/33719489/how-to-enable-usb-redirection-in-windows-10
+  services.udev.extraRules = ''
+    ACTION=="ADD", SUBSYSTEM=="usb", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="085e", MODE="0777", SYMLINK+="webcam"
+  '';
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave

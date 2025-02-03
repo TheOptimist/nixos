@@ -56,7 +56,7 @@ in {
   swapDevices = [ ];
 
   hardware.bluetooth.enable = true;
-  hardware.logitech.wireless.enable = true;
+  # hardware.logitech.wireless.enable = true;
 
   environment.persistence."/persist" = {
     directories = [
