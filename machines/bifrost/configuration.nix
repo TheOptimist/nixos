@@ -1,9 +1,10 @@
-{ pkgs, lib, inputs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
     ./shell.nix
+    ./virtualisation.nix
   ];
 
 #  nix.nixPath = [
@@ -25,19 +26,6 @@
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     zfs rollback -r rpool/local/root@blank
   '';
-
-  boot.kernelModules = [ "kvm-amd" ];
-  # Enable nested virtualisation inside the guests?
-  # boot.extraModprobeConfig = "options kvm_amd nested=1";
-  virtualisation.libvirtd = {
-    enable = true;
-    allowedBridges = [ "br0" "virbr0" ];
-    qemu = {
-      runAsRoot = true;
-      ovmf.enable = true;
-      swtpm.enable = true;
-    };
-  };
 
   time.timeZone = "America/Toronto";
 
@@ -73,10 +61,10 @@
     discord
     fd
     firefox
+    gnupg
     geekbench
     autorandr
     lastpass-cli
-    virt-manager
     element-desktop
     signal-desktop
     google-chrome
@@ -90,7 +78,6 @@
     hwinfo
     lm_sensors
     openrgb
-    swtpm
     via
     zoom-us
     teams-for-linux
@@ -101,7 +88,6 @@
     testdisk
     nil
     geekbench
-    remmina
   ];
 
   # virtualisation.docker = {
