@@ -53,6 +53,11 @@
     package = pkgs.emacs-unstable;
   };
 
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+  
   environment.systemPackages = with pkgs; [
     emacs
     git
@@ -61,7 +66,6 @@
     discord
     fd
     firefox
-    gnupg
     geekbench
     autorandr
     lastpass-cli
