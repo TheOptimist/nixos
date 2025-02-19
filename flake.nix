@@ -3,8 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    proxmox-nixos.url = "github:SaumonNet/proxmox-nixos";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -26,6 +27,7 @@
         inherit system;
         config.allowUnfree = true;
         overlays = [
+          inputs.proxmox-nixos.overlays.${system}
           inputs.nix-vscode-extensions.overlays.default
           inputs.emacs-overlay.overlay
           (import ./overlays/vivaldi.nix)
@@ -39,6 +41,8 @@
           inherit system pkgs;
           specialArgs = { inherit inputs; };
           modules = [
+            inputs.proxmox-nixos.nixosModules.proxmox-ve
+
             (import ./machines/bifrost/configuration.nix)
 
             home-manager.nixosModules.home-manager

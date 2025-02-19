@@ -24,4 +24,9 @@
     swtpm
     remmina
   ];
+
+  services.proxmox-ve = {
+    enable = true;
+    ipAddress = "192.168.100.1";
+  };
 }

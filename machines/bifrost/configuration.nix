@@ -64,6 +64,7 @@
     kitty
     ripgrep
     discord
+    devbox
     fd
     firefox
     geekbench
