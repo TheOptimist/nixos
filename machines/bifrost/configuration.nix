@@ -65,6 +65,7 @@
     ripgrep
     discord
     devbox
+    devpod
     fd
     firefox
     geekbench
