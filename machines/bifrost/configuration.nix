@@ -5,6 +5,8 @@
     ./hardware-configuration.nix
     ./shell.nix
     ./virtualisation.nix
+    ./vscode.nix
+    ./vscodium.nix
   ];
 
 #  nix.nixPath = [
