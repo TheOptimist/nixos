@@ -61,6 +61,7 @@
   };
   
   environment.systemPackages = with pkgs; [
+    cdrkit
     emacs
     git
     kitty
@@ -76,7 +77,6 @@
     element-desktop
     signal-desktop
     google-chrome
-    microsoft-edge
     nvme-cli
     headsetcontrol
     obsidian
@@ -91,7 +91,6 @@
     teams-for-linux
     gnomeExtensions.appindicator
     usbutils
-    podman
     leocad
     testdisk
     nil

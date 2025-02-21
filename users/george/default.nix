@@ -5,7 +5,10 @@
     ./shell
     ./terminal.nix
   ];
-
+  
+  programs.home-manager.enable = true;
+  xdg.enable = true;
+  
   home.username = "george";
   home.homeDirectory = "/home/george";
 
@@ -16,7 +19,6 @@
     AWS_DEFAULT_OUTPUT = "json";
   };
 
-  programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
     pinta
@@ -51,15 +53,12 @@
       "appindicatorsupport@rgcjonas.gmail.com"
     ];
   };
-  xdg.enable = true;
 
-  xdg.configFile."teams-for-linux/config.json".text = ''
-{
-  "defaultURLHandler": "${pkgs.microsoft-edge}/bin/microsoft-edge",
-  "closeAppOnCross": true,
-  "optInTeamsV2": true
-}
-'';
+#   # Ensures libvirt and qemu know where firmware files across rebuilds of system
+#   xdg.configFile."libvirt/qemu.conf".text = ''
+# nvram = [ "/run/libvirt/nix-ovmf/OVMF_CODE.fs:/run/libvirt/nix-ovmf/OVMF_VARS.fd" ]
+# '';
+
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

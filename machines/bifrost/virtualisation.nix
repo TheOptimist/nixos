@@ -23,10 +23,6 @@
     virt-manager
     swtpm
     remmina
+    podman
   ];
-
-  services.proxmox-ve = {
-    enable = true;
-    ipAddress = "192.168.100.1";
-  };
 }
