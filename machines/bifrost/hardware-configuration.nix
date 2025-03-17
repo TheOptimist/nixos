@@ -3,17 +3,10 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
 
-let
-  impermanence = fetchTarball {
-    url = "https://github.com/nix-community/impermanence/archive/master.tar.gz";
-    sha256 = "sha256:04l16szln2x0ajq2x799krb53ykvc6vm44x86ppy1jg9fr82161c";
-  };
-
-in {
+{
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    "${impermanence}/nixos.nix"
   ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
@@ -66,7 +59,6 @@ in {
       "/var/lib/bluetooth"
       "/var/lib/libvirt"
       "/var/lib/nixos"
-      "/var/lib/docker"
     ];
     files = [ 
       "/etc/machine-id"
